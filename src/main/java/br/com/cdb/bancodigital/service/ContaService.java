@@ -91,12 +91,12 @@ public class ContaService {
             throw new SaqueException("O valor do saque deve ser maior que zero.");
         }
 
-        if (valor.compareTo(valor) < 0) {
-            throw new DepositoException("Saldo insuficiente!");
-        }
-
         ContaBancaria conta = contaRepository.findById(numeroConta)
                 .orElseThrow(() -> new RuntimeException("Conta não encontrada"));
+
+        if (conta.getSaldo().compareTo(valor) < 0) {
+            throw new SaqueException("Saldo insuficiente");
+        }
 
         conta.sacar(valor);
         return contaRepository.save(conta);
