@@ -2,7 +2,7 @@ package br.com.cdb.bancodigital.controller;
 
 import br.com.cdb.bancodigital.dto.AlterarSenhaRequest;
 import br.com.cdb.bancodigital.dto.CartaoRequest;
-import br.com.cdb.bancodigital.dto.SenhaPagamentoRequest;
+import br.com.cdb.bancodigital.dto.PagamentoRequest;
 import br.com.cdb.bancodigital.entity.Cartao;
 import br.com.cdb.bancodigital.entity.CartaoDebito;
 import br.com.cdb.bancodigital.service.CartaoDebitoService;
@@ -54,10 +54,10 @@ public class CartaoDebitoController {
     }
 
     @PutMapping("/{id}/pagar")
-    public ResponseEntity<CartaoDebito> pagar(@PathVariable Long id, BigDecimal valor, SenhaPagamentoRequest request) {
+    public ResponseEntity<CartaoDebito> pagar(@PathVariable Long id, @RequestBody PagamentoRequest request) {
         cartaoDebitoService.pagar(
                 id,
-                valor,
+                request.getValor(),
                 request.getSenha()
         );
 

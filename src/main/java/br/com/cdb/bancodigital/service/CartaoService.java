@@ -7,17 +7,24 @@ import br.com.cdb.bancodigital.entity.CartaoDebito;
 import br.com.cdb.bancodigital.entity.ContaBancaria;
 import br.com.cdb.bancodigital.repository.CartaoRepository;
 import br.com.cdb.bancodigital.repository.ContaRepository;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
+@Getter
+@Setter
 @Service
 public class CartaoService {
-    protected final CartaoRepository cartaoRepository;
-    protected ContaRepository contaRepository;
 
-    public CartaoService(CartaoRepository repo) {
+    private final CartaoRepository cartaoRepository;
+
+    private final ContaRepository contaRepository;
+
+    @Autowired
+    public CartaoService(CartaoRepository cartaoRepository, ContaRepository contaRepository) {
+        this.cartaoRepository = cartaoRepository;
         this.contaRepository = contaRepository;
-        this.cartaoRepository = repo;
     }
 
     public Cartao criarCartao(CartaoRequest request) {

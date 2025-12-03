@@ -1,7 +1,10 @@
 package br.com.cdb.bancodigital.service;
 
+import br.com.cdb.bancodigital.entity.Cartao;
 import br.com.cdb.bancodigital.entity.CartaoDebito;
 import br.com.cdb.bancodigital.repository.CartaoRepository;
+import br.com.cdb.bancodigital.repository.ContaRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,29 +13,29 @@ import java.math.BigDecimal;
 @Service
 public class CartaoDebitoService extends CartaoService {
 
-    private final CartaoRepository cartaoRepository;
-
     @Autowired
-    public CartaoDebitoService(CartaoRepository repo) {
-        super(repo);
-        this.cartaoRepository = repo;
+    public CartaoDebitoService(CartaoRepository cartaoRepository, ContaRepository contaRepository) {
+        super(cartaoRepository, contaRepository);
     }
 
-
+    @Transactional
     public void pagar(Long idCartao, BigDecimal valor, String senhaInformada) {
-        CartaoDebito c = (CartaoDebito) cartaoRepository.findById(idCartao)
-                .orElseThrow(() -> new RuntimeException("Cartão não encontrado."));
+        Cartao cartao = findById(idCartao);
 
-        c.pagar(valor, senhaInformada);
-        cartaoRepository.save(c);
+        if (!(cartao instanceof CartaoDebito)) {
+            throw new RuntimeException("Este ID pertence a um cartão de crédito. Use a rota de cartão de crédito para pagamentos.");
+        }
+
+        CartaoDebito cartaoDebito = (CartaoDebito) cartao;
+        cartaoDebito.pagar(valor, senhaInformada);
+        getCartaoRepository().save(cartaoDebito);
     }
 
     public void alterarLimiteDiario(Long idCartao, BigDecimal novoLimite) {
-        CartaoDebito c = (CartaoDebito) cartaoRepository.findById(idCartao)
-                .orElseThrow(() -> new RuntimeException("Cartão não encontrado."));
+        CartaoDebito c = (CartaoDebito) findById(idCartao);
 
         c.setLimiteDiario(novoLimite);
-        cartaoRepository.save(c);
+        getCartaoRepository().save(c);
     }
 
 }

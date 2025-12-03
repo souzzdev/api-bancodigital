@@ -9,9 +9,9 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @Entity
-@Table(name = "conta_bancaria")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
+@DiscriminatorColumn(name = "dtype")
+@Table(name = "conta_bancaria")
 @Getter
 @Setter
 public abstract class ContaBancaria {
@@ -24,8 +24,12 @@ public abstract class ContaBancaria {
     @Column(name = "tipo_cliente", nullable = false)
     private TipoCliente tipoCliente;
 
-    @OneToOne
-    @JoinColumn(name = "cliente_id", unique = true, nullable = false)
+    @ManyToOne
+    @JoinColumn(
+            name = "cliente_cpf",
+            referencedColumnName = "cpf",
+            nullable = false
+    )
     private Cliente cliente;
 
     @Column(name = "saldo", nullable = false, precision = 19, scale = 2)

@@ -29,6 +29,7 @@ public class Cliente {
     @Column(name = "tipo_cliente", nullable = false)
     private TipoCliente tipoCliente;
 
+
     public Cliente() {}
 
     public Cliente(String nome, String cpf, String dataNascimento, String endereco, TipoCliente tipoCliente) {

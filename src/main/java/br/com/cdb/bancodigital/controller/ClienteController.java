@@ -27,7 +27,7 @@ public class ClienteController {
         return ResponseEntity.status(HttpStatus.CREATED).body(clienteSalvo);
     }
 
-    @GetMapping("{cpf}")
+    @GetMapping("{cpf}/listar")
     public ResponseEntity<Cliente> buscarCliente(@PathVariable String cpf) {
         Cliente cliente = clienteService.buscarCliente(cpf);
         return ResponseEntity.ok(cliente);
@@ -45,7 +45,7 @@ public class ClienteController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping
+    @GetMapping("/listar-todos")
     public ResponseEntity<List<Cliente>> listarClientes () {
         List<Cliente> clientes = clienteService.listarClientes();
         return ResponseEntity.ok(clientes);
