@@ -2,7 +2,6 @@ package br.com.cdb.bancodigital.service;
 
 import br.com.cdb.bancodigital.entity.Cartao;
 import br.com.cdb.bancodigital.entity.CartaoCredito;
-import br.com.cdb.bancodigital.entity.CartaoDebito;
 import br.com.cdb.bancodigital.enums.TipoCliente;
 import br.com.cdb.bancodigital.repository.CartaoRepository;
 import br.com.cdb.bancodigital.repository.ContaRepository;

@@ -13,10 +13,6 @@ import lombok.AllArgsConstructor;
 @Setter
 public class CartaoDebito extends Cartao {
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "conta_associada_id")
-    private ContaCorrente contaAssociada;
-
     @Column(name = "limite_diario", nullable = false, precision = 19, scale = 2)
     private BigDecimal limiteDiario = BigDecimal.ZERO;
 
@@ -25,8 +21,8 @@ public class CartaoDebito extends Cartao {
 
     public CartaoDebito() {}
 
-    public CartaoDebito(ContaCorrente conta, BigDecimal limiteDiario) {
-        this.contaAssociada = conta;
+    public CartaoDebito(ContaBancaria conta, BigDecimal limiteDiario) {
+        this.setContaAssociada(conta);
         this.limiteDiario = limiteDiario;
     }
 
@@ -38,15 +34,14 @@ public class CartaoDebito extends Cartao {
         if(!senhaInformada.equals(senha))
             throw new RuntimeException("Senha invalida");
 
-
         if(gastoHoje.add(valor).compareTo(limiteDiario) > 0)
             throw new RuntimeException("Limite diario atingido");
 
-        if (contaAssociada == null)
+        if (getContaAssociada() == null)
             throw new RuntimeException("Este cartão não está associado a nenhuma conta.");
 
 
-        contaAssociada.sacar(valor);
+        getContaAssociada().sacar(valor);
         gastoHoje = gastoHoje.add(valor);
     }
 }

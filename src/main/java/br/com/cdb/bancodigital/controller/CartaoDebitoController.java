@@ -1,5 +1,6 @@
 package br.com.cdb.bancodigital.controller;
 
+import br.com.cdb.bancodigital.dto.AlterarLimiteCartaoDebitoRequest;
 import br.com.cdb.bancodigital.dto.AlterarSenhaRequest;
 import br.com.cdb.bancodigital.dto.CartaoRequest;
 import br.com.cdb.bancodigital.dto.PagamentoRequest;
@@ -65,10 +66,10 @@ public class CartaoDebitoController {
     }
 
     @PutMapping("/{id}/alterar-limite-diario")
-    public ResponseEntity<CartaoDebito>  alterarLimiteDiario(@PathVariable Long id, @RequestBody BigDecimal novoLimite) {
+    public ResponseEntity<CartaoDebito>  alterarLimiteDiario(@PathVariable Long id, @RequestBody AlterarLimiteCartaoDebitoRequest request) {
         cartaoDebitoService.alterarLimiteDiario(
                 id,
-                novoLimite
+                request.novoLimite()
         );
         return ResponseEntity.noContent().build();
     }

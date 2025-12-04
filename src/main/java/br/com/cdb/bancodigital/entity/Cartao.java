@@ -27,7 +27,7 @@ public abstract class Cartao {
     @Column(name = "ativo", nullable = false)
     protected boolean ativo = true;
 
-    @ManyToOne
+    @ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "conta_associada_id", nullable = false)
     private ContaBancaria contaAssociada;
 

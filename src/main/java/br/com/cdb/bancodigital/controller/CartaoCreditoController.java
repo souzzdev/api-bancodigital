@@ -55,10 +55,10 @@ public class CartaoCreditoController {
     }
 
     @PutMapping("/{id}/pagar")
-    public ResponseEntity<CartaoCredito> pagarCartao(@PathVariable Long id, BigDecimal valor, PagamentoRequest request) {
+    public ResponseEntity<CartaoCredito> pagar(@PathVariable Long id, @RequestBody PagamentoRequest request) {
         cartaoCreditoService.pagar(
                 id,
-                valor,
+                request.getValor(),
                 request.getSenha()
         );
 

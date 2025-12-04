@@ -13,9 +13,6 @@ import lombok.AllArgsConstructor;
 @Setter
 public class CartaoCredito extends Cartao {
 
-    @OneToOne
-    @JoinColumn(name = "conta_associada_id")
-    private ContaCorrente contaAssociada;
 
     @Column(name = "limite", precision = 19, scale = 2)
     private BigDecimal limite;
@@ -25,8 +22,8 @@ public class CartaoCredito extends Cartao {
 
     public CartaoCredito() {}
 
-    public CartaoCredito(ContaCorrente contaAssociada, BigDecimal limite) {
-        this.contaAssociada = contaAssociada;
+    public CartaoCredito(ContaBancaria conta, BigDecimal limite) {
+        this.setContaAssociada(conta);
         this.limite = limite;
     }
 
@@ -51,7 +48,7 @@ public class CartaoCredito extends Cartao {
 
         if (percentual.compareTo(BigDecimal.valueOf(80)) > 0) {
             BigDecimal taxa = gastoMensal.multiply(BigDecimal.valueOf(0.5));
-            contaAssociada.sacar(taxa);
+            getContaAssociada().sacar(taxa);
         }
     }
 }
