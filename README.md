@@ -248,7 +248,7 @@ PUT /cartoes/debito/1/alterar-senha
 <p>
 <b>Guilherme Souza (souzzdev)</b><br/>
 Desenvolvedor Backend Java<br/>
-Linkedin: <a href="https://www.linkedin.com/in/guilhermesouzadev/">https://github.com/souzzdev</a>
+Linkedin: <a href="https://www.linkedin.com/in/guilhermesouzadev/">https://www.linkedin.com/in/guilhermesouzadev/</a>
 </p>
 
 <hr/>
